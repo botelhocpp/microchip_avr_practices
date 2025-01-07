@@ -1,3 +1,21 @@
 # Microchip AVR Practices with ATmega328P
 
-## Codes for Microchip's AVR ATmega328P microcontroller using Arduino Uno board.
+## Full Bare-metal Codes for Microchip's AVR ATmega328P microcontroller using Arduino Uno board.
+
+This repository has the intent of bringing each functionality of the MCU without any underlying layer. 
+
+Basically I build a library called "avrbsp". It has a simple linker script, a Makefile, as well as functions and definitions for each peripheral of the MCU. My objective is to enable easy development with this MCU.
+
+## Contents
+
+- [X] Blinky
+- [X] GPIO
+- [X] External Interrupts
+- [X] Timers
+- [X] USART
+- [X] PWM
+- [ ] ADC
+- [ ] TWI
+- [ ] SPI
+- [ ] EEPROM
+      

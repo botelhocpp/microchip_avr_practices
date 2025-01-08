@@ -1,0 +1,166 @@
+Archive member included to satisfy reference by file (symbol)
+
+bsp/lib/libavrbsp.a(start.o)  (_start)
+bsp/lib/libavrbsp.a(buzzer.o)
+                              obj/main.o (buzzer_init)
+bsp/lib/libavrbsp.a(gpio.o)   obj/main.o (gpio_init)
+bsp/lib/libavrbsp.a(servo.o)  obj/main.o (servo_init)
+bsp/lib/libavrbsp.a(timer.o)  bsp/lib/libavrbsp.a(buzzer.o) (timer_set_clock)
+bsp/lib/libavrbsp.a(usart.o)  obj/main.o (usart_init)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000000000000 0x0000000000008000 xr
+SRAM             0x0000000000800100 0x0000000000000800 rw !x
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+                0x00000000008008ff                PROVIDE (__stack_top, ((ORIGIN (SRAM) + LENGTH (SRAM)) - 0x1))
+
+.text           0x0000000000000000      0x684
+ *(.vectors)
+ .vectors       0x0000000000000000       0x68 bsp/lib/libavrbsp.a(start.o)
+                0x0000000000000068                . = ALIGN (0x2)
+ *(.text)
+ .text          0x0000000000000068       0xee obj/main.o
+                0x0000000000000068                __vector_TIMER0_COMPA_ISR
+                0x0000000000000086                __vector_USART_RX_ISR
+                0x00000000000000d8                __vector_USART_UDRE_ISR
+ .text          0x0000000000000156       0x4c bsp/lib/libavrbsp.a(start.o)
+                0x0000000000000156                _start
+                0x000000000000016e                __copy_data
+                0x0000000000000188                __clear_bss
+                0x000000000000019e                __vector_TIMER0_OVF_ISR
+                0x000000000000019e                __dummy_function
+                0x000000000000019e                __vector_INT1_ISR
+                0x000000000000019e                __vector_SPM_READY_ISR
+                0x000000000000019e                __vector_TIMER1_CAPT_ISR
+                0x000000000000019e                __vector_EE_READY_ISR
+                0x000000000000019e                __vector_TWI_ISR
+                0x000000000000019e                __vector_TIMER2_COMPA_ISR
+                0x000000000000019e                __vector_ANALOG_COMP_ISR
+                0x000000000000019e                __vector_INT0_ISR
+                0x000000000000019e                __vector_TIMER1_OVF_ISR
+                0x000000000000019e                __vector_USART_TX_ISR
+                0x000000000000019e                __vector_SPI_STC_ISR
+                0x000000000000019e                __vector_PCINT2_ISR
+                0x000000000000019e                __vector_USART_ADC_ISR
+                0x000000000000019e                __vector_TIMER1_COMPA_ISR
+                0x000000000000019e                __vector_PCINT1_ISR
+                0x000000000000019e                __vector_WDT_ISR
+                0x000000000000019e                __vector_TIMER2_COMPB_ISR
+                0x000000000000019e                __vector_TIMER0_COMPB_ISR
+                0x000000000000019e                __vector_PCINT0_ISR
+                0x000000000000019e                __vector_TIMER1_COMPB_ISR
+                0x000000000000019e                __vector_TIMER2_OVF_ISR
+ .text          0x00000000000001a2       0x90 bsp/lib/libavrbsp.a(buzzer.o)
+                0x00000000000001a2                buzzer_init
+                0x00000000000001d8                buzzer_tone
+                0x0000000000000210                buzzer_no_tone
+ .text          0x0000000000000232      0x120 bsp/lib/libavrbsp.a(gpio.o)
+                0x0000000000000232                gpio_init
+                0x00000000000002ba                gpio_write
+                0x00000000000002f2                gpio_toggle
+                0x0000000000000322                gpio_read
+ .text          0x0000000000000352       0x62 bsp/lib/libavrbsp.a(servo.o)
+                0x0000000000000352                servo_init
+                0x00000000000003a4                servo_write
+ .text          0x00000000000003b4      0x1c0 bsp/lib/libavrbsp.a(timer.o)
+                0x00000000000003b4                timer_set_clock
+                0x00000000000003ee                timer_set_counter
+                0x000000000000040c                timer_init
+                0x000000000000047e                timer_set_input_compare_value
+                0x000000000000048c                timer_set_output_compare_value
+                0x00000000000004c0                timer_enable_interrupt
+                0x00000000000004e4                timer_config_output_compare_channel
+                0x000000000000054e                timer_disable_interrupt
+ .text          0x0000000000000574      0x110 bsp/lib/libavrbsp.a(usart.o)
+                0x0000000000000574                usart_enable_interrupt
+                0x0000000000000592                usart_init
+                0x00000000000005d4                usart_disable_interrupt
+                0x00000000000005f4                usart_write
+                0x00000000000005fa                usart_read
+                0x0000000000000600                usart_has_data
+                0x000000000000060c                usart_is_empty
+                0x0000000000000618                usart_write_blocking
+                0x000000000000062c                usart_read_blocking
+                0x000000000000063a                usart_write_string_blocking
+                0x0000000000000652                usart_read_string_blocking
+                0x000000000000077e                PROVIDE (__data_load_start, LOADADDR (.data))
+
+.trampolines    0x0000000000000684        0x0
+ .trampolines   0x0000000000000684        0x0 linker stubs
+
+.text.startup   0x0000000000000684       0xfa
+ .text.startup  0x0000000000000684       0xfa obj/main.o
+                0x0000000000000684                main
+
+.data           0x0000000000800100       0x82 load address 0x000000000000077e
+                0x0000000000800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x0000000000800100        0x5 obj/main.o
+                0x0000000000800100                welcome_message
+ .data          0x0000000000800105        0x0 bsp/lib/libavrbsp.a(start.o)
+ .data          0x0000000000800105        0x0 bsp/lib/libavrbsp.a(buzzer.o)
+ .data          0x0000000000800105        0x0 bsp/lib/libavrbsp.a(gpio.o)
+ .data          0x0000000000800105        0x0 bsp/lib/libavrbsp.a(servo.o)
+ .data          0x0000000000800105        0x0 bsp/lib/libavrbsp.a(timer.o)
+ .data          0x0000000000800105        0x0 bsp/lib/libavrbsp.a(usart.o)
+ *(.rodata)
+ .rodata        0x0000000000800105       0x1d obj/main.o
+                0x0000000000800105                NOTES
+                0x0000000000800113                led
+                0x0000000000800116                servo
+                0x000000000080011b                buzzer
+ .rodata        0x0000000000800122       0x12 bsp/lib/libavrbsp.a(gpio.o)
+                0x0000000000800122                GPIO_PIN_REGS
+                0x0000000000800128                GPIO_DDR_REGS
+                0x000000000080012e                GPIO_PORT_REGS
+ .rodata        0x0000000000800134       0x34 bsp/lib/libavrbsp.a(timer.o)
+                0x000000000080013c                TIMER_WAVEFORM_MODE
+                0x000000000080013e                TIMER_TIFR_REGS
+                0x0000000000800144                TIMER_TIMSK_REGS
+                0x000000000080014a                TIMER_OCRB_REGS
+                0x0000000000800150                TIMER_OCRA_REGS
+                0x0000000000800156                TIMER_TCNT_REGS
+                0x000000000080015c                TIMER_TCCRB_REGS
+                0x0000000000800162                TIMER_TCCRA_REGS
+ .rodata        0x0000000000800168        0xc bsp/lib/libavrbsp.a(usart.o)
+                0x0000000000800168                baud_rates
+ *(.rodata)
+ *(.rodata*)
+ .rodata.str1.1
+                0x0000000000800174        0xe obj/main.o
+                0x0000000000800182                PROVIDE (__data_end, .)
+
+.bss            0x0000000000800182        0x3 load address 0x0000000000000800
+                0x0000000000800182                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x0000000000800182        0x3 obj/main.o
+                0x0000000000800182                tick_timer_1ms
+                0x0000000000800183                rx_done
+                0x0000000000800184                rx_buffer
+ .bss           0x0000000000800185        0x0 bsp/lib/libavrbsp.a(start.o)
+ .bss           0x0000000000800185        0x0 bsp/lib/libavrbsp.a(buzzer.o)
+ .bss           0x0000000000800185        0x0 bsp/lib/libavrbsp.a(gpio.o)
+ .bss           0x0000000000800185        0x0 bsp/lib/libavrbsp.a(servo.o)
+ .bss           0x0000000000800185        0x0 bsp/lib/libavrbsp.a(timer.o)
+ .bss           0x0000000000800185        0x0 bsp/lib/libavrbsp.a(usart.o)
+ *(.COMMON)
+                0x0000000000800185                PROVIDE (__bss_end, .)
+LOAD obj/main.o
+LOAD bsp/lib/libavrbsp.a
+OUTPUT(obj/app.elf elf32-avr)
+LOAD linker stubs
+
+.comment        0x0000000000000000       0x11
+ .comment       0x0000000000000000       0x11 obj/main.o
+                                         0x12 (size before relaxing)
+ .comment       0x0000000000000011       0x12 bsp/lib/libavrbsp.a(buzzer.o)
+ .comment       0x0000000000000011       0x12 bsp/lib/libavrbsp.a(gpio.o)
+ .comment       0x0000000000000011       0x12 bsp/lib/libavrbsp.a(servo.o)
+ .comment       0x0000000000000011       0x12 bsp/lib/libavrbsp.a(timer.o)
+ .comment       0x0000000000000011       0x12 bsp/lib/libavrbsp.a(usart.o)

@@ -14,6 +14,7 @@ Basically I build a library called "avrbsp". It has a simple linker script, a Ma
 - [X] Timers
 - [X] USART
 - [X] PWM
+- [X] Servo/Buzzer
 - [ ] ADC
 - [ ] TWI
 - [ ] SPI

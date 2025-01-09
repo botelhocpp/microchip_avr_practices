@@ -17,7 +17,7 @@ Basically I build a static library called "avrbsp". It has a simple linker scrip
 - [X] Servo/Buzzer
 - [X] ADC
 - [X] libc*
-- [ ] TWI
+- [X] TWI
 - [ ] SPI
 - [ ] EEPROM
 

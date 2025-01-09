@@ -32,8 +32,8 @@ const uint8_t TWI_TWBR[] = {
 void twi_init(twi_clock_select clock, bool enable_interrupt) {
     TWBR = TWI_TWBR[clock];
 
-    // gpio_init(&SDA, IO_DIRECTION_IN_PULLUP);
-    // gpio_init(&SCL, IO_DIRECTION_IN_PULLUP);
+    gpio_init(&SDA, IO_DIRECTION_IN_PULLUP);
+    gpio_init(&SCL, IO_DIRECTION_IN_PULLUP);
     
     if(enable_interrupt) {
         twi_enable_interrupt();
@@ -62,7 +62,7 @@ bool twi_check_completion(void) {
 }
 
 void twi_clear_flag(void) {
-    TWCR = TWINT | TWEN;
+    TWCR |= TWINT | TWEN;
 }
 
 void twi_enable_interrupt(void) {
@@ -80,11 +80,11 @@ twi_status twi_get_status(void) {
 /* TWI Non-Blocking Directives */
 
 void twi_send_start(void) {
-    TWCR = TWINT | TWSTA | TWEN;
+    TWCR |= TWINT | TWSTA | TWEN;
 }
 
 void twi_send_stop(void) {
-    TWCR = TWINT | TWSTO | TWEN;
+    TWCR |= TWINT | TWSTO | TWEN;
 }
 
 void twi_write_data(uint8_t data) {
@@ -103,6 +103,8 @@ twi_status twi_start(void) {
     twi_send_start();
 
     while(!twi_check_completion());
+
+    TWCR &= ~TWSTA;
 
     twi_status status = twi_get_status();
 

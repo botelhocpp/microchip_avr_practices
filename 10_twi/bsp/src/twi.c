@@ -29,6 +29,8 @@ const uint8_t TWI_TWBR[] = {
     [TWI_CLOCK_SELECT_400KHZ] = TWI_CALC_TWBR(400000, TWI_PS)
 };
 
+static bool twi_interrupt_is_enabled = false;
+
 void twi_init(twi_clock_select clock, bool enable_interrupt) {
     TWBR = TWI_TWBR[clock];
 
@@ -62,14 +64,16 @@ bool twi_check_completion(void) {
 }
 
 void twi_clear_flag(void) {
-    TWCR |= TWINT | TWEN;
+    TWCR = TWINT | TWEN | twi_interrupt_is_enabled;
 }
 
 void twi_enable_interrupt(void) {
+    twi_interrupt_is_enabled = true;
     TWCR |= TWIE;
 }
 
 void twi_disable_interrupt(void) {
+    twi_interrupt_is_enabled = false;
     TWCR &= ~TWIE;
 }
 
@@ -80,11 +84,11 @@ twi_status twi_get_status(void) {
 /* TWI Non-Blocking Directives */
 
 void twi_send_start(void) {
-    TWCR |= TWINT | TWSTA | TWEN;
+    TWCR = TWINT | TWSTA | TWEN | twi_interrupt_is_enabled;
 }
 
 void twi_send_stop(void) {
-    TWCR |= TWINT | TWSTO | TWEN;
+    TWCR = TWINT | TWSTO | TWEN | twi_interrupt_is_enabled;
 }
 
 void twi_write_data(uint8_t data) {
@@ -103,8 +107,6 @@ twi_status twi_start(void) {
     twi_send_start();
 
     while(!twi_check_completion());
-
-    TWCR &= ~TWSTA;
 
     twi_status status = twi_get_status();
 

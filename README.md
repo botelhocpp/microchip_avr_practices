@@ -18,7 +18,7 @@ Basically I build a static library called "avrbsp". It has a simple linker scrip
 - [X] ADC
 - [X] libc*
 - [X] TWI
-- [ ] SPI
-- [ ] EEPROM
+- [X] SPI
+- [X] EEPROM
 
 *Standard C Library for AVR (libc)

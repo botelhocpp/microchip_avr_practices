@@ -59,9 +59,9 @@ void rtc_read_time(rtc_time_t *rtc_time) {
 void display_rtc_time(const rtc_time_t *rtc_time) {
     static char time_string[TIME_STRING_SIZE];
 
-    int seconds = (rtc_time->sec);
-    int minutes = (rtc_time->min);
-    int hours = (rtc_time->hour & 0xF);
+    int seconds = bcd2dec(rtc_time->sec);
+    int minutes = bcd2dec(rtc_time->min);
+    int hours = bcd2dec(rtc_time->hour & 0xF);
 
     snprintf(time_string, TIME_STRING_SIZE, "%02hhd:%02hhd:%02hhd\n\r", hours, minutes, seconds);
     usart_print(time_string);

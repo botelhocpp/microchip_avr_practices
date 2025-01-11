@@ -20,5 +20,8 @@ Basically I build a static library called "avrbsp". It has a simple linker scrip
 - [X] TWI
 - [X] SPI
 - [X] EEPROM
+- [ ] RTC DS3231
+- [ ] LCD 16x2
+- [ ] Ultrasonic Sensor
 
 *Standard C Library for AVR (libc)

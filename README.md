@@ -17,9 +17,10 @@ Basically I build a static library called "avrbsp". It has a simple linker scrip
 - [X] Servo/Buzzer
 - [X] ADC
 - [X] libc*
-- [X] TWI
+- [X] TWI (I2C)
 - [X] SPI
 - [X] EEPROM
-- [ ] RTC/LCD
+- [X] RTC/LCD**
 
 *Standard C Library for AVR (libc)
+**DS3231 and LCD 16x2 via TWI (I2C)

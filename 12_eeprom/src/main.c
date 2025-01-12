@@ -70,6 +70,7 @@ void display_rtc_time(const rtc_time_t *rtc_time) {
 int main(void) {
     usart_init(BAUDRATE_115200, DISABLE_INTERRUPT, DISABLE_INTERRUPT);
     twi_init(TWI_CLOCK_SELECT_100KHZ, DISABLE_INTERRUPT);
+    eeprom_init(EEPROM_MODE_ERASE_WRITE, DISABLE_INTERRUPT);
     
     __DISABLE_INTERRUPTS();
 

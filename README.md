@@ -21,6 +21,7 @@ Basically I build a static library called "avrbsp". It has a simple linker scrip
 - [X] SPI
 - [X] EEPROM
 - [X] RTC/LCD**
+- [X] WDT and Power Management 
 
 *Standard C Library for AVR (libc)
 **DS3231 and LCD 16x2 via TWI (I2C)
